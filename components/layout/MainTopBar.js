@@ -4,7 +4,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 const MainTopBar = () => {
   return (
     <Box sx={{flexGrow: 1}}>
-      <AppBar position="fixed" elevation={0} sx={{backgroundColor: 'transparent', color: 'primary.main'}}>
+      <AppBar position="fixed" elevation={0} variant="outlined" sx={{backgroundColor: 'common.white', color: 'primary.main'}}>
         <Toolbar>
           <IconButton size="large"
             edge="start"

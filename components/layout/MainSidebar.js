@@ -82,7 +82,7 @@ const MainSidebar = () => {
       {
         menuCollection.map(menu => (
           <List
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+            sx={{ width: '100%', bgcolor: 'background.paper' }}
             component="nav"
             aria-labelledby="nested-list-subheader"
             subheader={
@@ -93,7 +93,7 @@ const MainSidebar = () => {
           >
             {
               menu.items.map(menuItem => (
-                <ListItemButton>
+                <ListItemButton selected={menu.label == 'Categories' && menuItem.label == 'Juice'}>
                   <ListItemIcon>
                     <CircleRoundedIcon fontSize='10' />
                   </ListItemIcon>

@@ -18,20 +18,17 @@ const MainLayout = ({children, title=''}) => {
         />
       </Head>
       <Box sx={{backgroundColor: 'common.white', color: 'common.black'}}>
-        <Grid container sx={{marginTop: '4rem'}}>
-          <Grid item sx={{flexGrow: 1}}>
-            <MainTopBar />
-            <Grid container>
-              <Grid item md={3}>
-                <MainSidebar />
-              </Grid>
-              <Grid item sx={{px: '1rem', paddingBottom: '1rem'}}>
-                {children}
-              </Grid>
-            </Grid>
+        <MainTopBar />
+        <Grid container sx={{marginTop: '4rem'}} spacing={3}>
+          <Grid item md={3} sx={{marginTop: '-1rem'}}>
+            <MainSidebar />
           </Grid>
-          <Grid item md={3} sx={{backgroundColor: 'common.black', minHeight: '90vh'}}>
+          <Grid item md={6}>
+            {children}
+          </Grid>
+          <Grid item md={3}>
             {/* calculator */}
+            <Box sx={{backgroundColor: 'common.black', minHeight: '90vh', width: '100%'}}></Box>
           </Grid>
         </Grid>
       </Box>
