@@ -80,8 +80,9 @@ const MainSidebar = () => {
   return (
     <Box sx={{height: '90vh', overflowY: 'auto', paddingBottom: '1rem'}}>
       {
-        menuCollection.map(menu => (
+        menuCollection.map((menu, menuIdx) => (
           <List
+            key={menuIdx}
             sx={{ width: '100%', bgcolor: 'background.paper' }}
             component="nav"
             aria-labelledby="nested-list-subheader"
@@ -92,8 +93,9 @@ const MainSidebar = () => {
             }
           >
             {
-              menu.items.map(menuItem => (
-                <ListItemButton selected={menu.label == 'Categories' && menuItem.label == 'Juice'}>
+              menu.items.map((menuItem, menuItemIdx) => (
+                <ListItemButton key={menuItemIdx}
+                  selected={menu.label == 'Categories' && menuItem.label == 'Juice'}>
                   <ListItemIcon>
                     <CircleRoundedIcon fontSize='10' />
                   </ListItemIcon>

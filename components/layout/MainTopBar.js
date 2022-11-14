@@ -1,5 +1,6 @@
 import AssuredWorkloadRoundedIcon from '@mui/icons-material/AssuredWorkloadRounded';
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import LocalDB from '../../utils/LocalDB';
 
 const MainTopBar = () => {
   return (
@@ -10,6 +11,7 @@ const MainTopBar = () => {
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={() => LocalDB.seedDummy()}
             sx={{ mr: 2 }}>
             <AssuredWorkloadRoundedIcon />
           </IconButton>
