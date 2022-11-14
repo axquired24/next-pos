@@ -17,36 +17,45 @@ const createGrocery = (label, categoryId) => {
   })
 }
 
-const seedDummy = () => {
-  const dummyCategories = ["Coffee", "Milk", "Juice", "Snack", "Main Course"]
-  const dummyJuices = ['Manggo', 'Apple', 'Berry', 'Papaya', 'Avocado', 'Melon', 'Orange', 'Pineapple', 'Peach']
-
+const initTable = () => {
   if( lib.isNew() ) {
     lib.createTable(Collection.Categories, ["label"])
     lib.createTable(Collection.Groceries, ["categoryId", "label", "stock", "price"])
 
-    dummyCategories.forEach(cat => {
-      lib.insert(Collection.Categories, {
-        label: cat
-      })
-    })
-
-    lib.commit()
-
-    const getJuice = lib.queryAll(Collection.Categories, {
-      query: {label: "Juice"}
-    });
-
-    if(getJuice.length > 0) {
-      dummyJuices.forEach(ju => createGrocery(ju, getJuice[0].ID))
-    } // endif
     lib.commit()
   } // endif
 
+  console.log('Table Created')
+}
+
+const seedDummy = () => {
+  const dummyCategories = ["Coffee", "Milk", "Juice", "Snack", "Main Course"]
+  const dummyJuices = ['Manggo', 'Apple', 'Berry', 'Papaya', 'Avocado', 'Melon', 'Orange', 'Pineapple', 'Peach']
+
+  dummyCategories.forEach(cat => {
+    lib.insert(Collection.Categories, {
+      label: cat
+    })
+  })
+
+  lib.commit()
+
+  const getJuice = lib.queryAll(Collection.Categories, {
+    query: {label: "Juice"}
+  });
+
+  if(getJuice.length > 0) {
+    dummyJuices.forEach(ju => createGrocery(ju, getJuice[0].ID))
+  } // endif
+  lib.commit()
   console.log('Dummy DB Created!')
 }
 
 const LocalDB = {
-  seedDummy
+  initTable,
+  seedDummy,
+  createGrocery,
+  Collection,
+  lib
 }
 export default LocalDB

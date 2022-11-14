@@ -10,40 +10,25 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import StarBorder from '@mui/icons-material/StarBorder';
 import { useState } from 'react';
 import { Box } from '@mui/system';
+import LocalDB from '../../utils/LocalDB';
+import { useEffect } from 'react';
 
 const MainSidebar = () => {
-  const [open, setOpen] = useState(true);
+  const [state, setState] = useState({
+    categories: []
+  });
 
-  const handleClick = () => {
-    setOpen(!open);
-  };
+  const setCategory = () => {
+    const categories = LocalDB.lib.queryAll(LocalDB.Collection.Categories).map(cat => {
+      return {
+        ...cat,
+        url: '#category-' + cat.ID
+      }
+    })
+    setState(prev => { return {...prev, categories} })
+  }
 
   const menuCollection = [
-    {
-      label: 'Categories',
-      items: [
-        {
-          label: 'Coffee',
-          url: '#coffee'
-        },
-        {
-          label: 'Milk',
-          url: '#milk'
-        },
-        {
-          label: 'Juice',
-          url: '#juice'
-        },
-        {
-          label: 'Snack',
-          url: '#snack'
-        },
-        {
-          label: 'Main Course',
-          url: '#maincourse'
-        }
-      ]
-    },
     {
       label: 'Reports',
       items: [
@@ -77,8 +62,34 @@ const MainSidebar = () => {
     }
   ]
 
+  useEffect(() => {
+    setCategory()
+  }, []);
+
   return (
     <Box sx={{height: '90vh', overflowY: 'auto', paddingBottom: '1rem'}}>
+      <List
+        sx={{ width: '100%', bgcolor: 'background.paper' }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            Categories
+          </ListSubheader>
+        }
+      >
+        {
+          state.categories.map((menuItem, menuItemIdx) => (
+            <ListItemButton key={menuItemIdx}
+              selected={menuItem.label == 'Juice'}>
+              <ListItemIcon>
+                <CircleRoundedIcon fontSize='10' />
+              </ListItemIcon>
+              <ListItemText primary={menuItem.label} />
+            </ListItemButton>
+          ))
+        }
+      </List>
       {
         menuCollection.map((menu, menuIdx) => (
           <List
@@ -94,8 +105,7 @@ const MainSidebar = () => {
           >
             {
               menu.items.map((menuItem, menuItemIdx) => (
-                <ListItemButton key={menuItemIdx}
-                  selected={menu.label == 'Categories' && menuItem.label == 'Juice'}>
+                <ListItemButton key={menuItemIdx}>
                   <ListItemIcon>
                     <CircleRoundedIcon fontSize='10' />
                   </ListItemIcon>

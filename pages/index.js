@@ -3,6 +3,7 @@ import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect'
 import { Box } from '@mui/system'
 import { useEffect, useState } from 'react'
 import MainLayout from '../components/layout/MainLayout'
+import LocalDB from '../utils/LocalDB'
 
 const BoxForItem = (props) => {
   const {name='', stock=10} = props
@@ -39,6 +40,7 @@ export default function Home() {
 
   useEffect(() => {
     if(! state.hasInit) {
+      LocalDB.initTable()
       setState(prev => { return {...prev, hasInit: true}})
     } // endif
   }, []);
