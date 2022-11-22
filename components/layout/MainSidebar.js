@@ -16,6 +16,7 @@ import ModCategory from '../../utils/models/ModCategory';
 
 const MainSidebar = () => {
   const [state, setState] = useState({
+    hasInit: false,
     categories: []
   });
 
@@ -64,9 +65,15 @@ const MainSidebar = () => {
   ]
 
   useEffect(() => {
-    if(ModCategory.tableExists()) {
+    if(ModCategory.tableExists() && state.hasInit) {
       setCategory()
     } // endif
+  }, [state.hasInit]);
+
+  useEffect(() => {
+    if(! state.hasInit) {
+      setState(prev => {return {...prev, hasInit: true}})
+    }
   }, []);
 
   return (
@@ -82,6 +89,7 @@ const MainSidebar = () => {
         }
       >
         {
+          state.hasInit ?
           state.categories.map((menuItem, menuItemIdx) => (
             <ListItemButton key={menuItemIdx}
               selected={menuItem.label == 'Juice'}>
@@ -91,6 +99,7 @@ const MainSidebar = () => {
               <ListItemText primary={menuItem.label} />
             </ListItemButton>
           ))
+          : <></>
         }
       </List>
       {

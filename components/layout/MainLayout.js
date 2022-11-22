@@ -20,14 +20,14 @@ const MainLayout = ({children, title=''}) => {
       <Box sx={{backgroundColor: 'common.white', color: 'common.black'}}>
         <MainTopBar />
         <Grid container sx={{marginTop: '4rem'}} spacing={3}>
-          <Grid item sx={{marginTop: '-1rem', flex: 1}}>
+          <Grid item sx={{marginTop: '-1rem', flex: 2}}>
             <MainSidebar />
           </Grid>
-          <Grid item sx={{flex: 3}}>
+          <Grid item sx={{flex: 7}}>
             {children}
           </Grid>
-          <Grid item sx={{flex: 1}}>
-            {/* calculator */}
+          {/* calculator */}
+          <Grid item sx={{flex: 3}}>
             <Box sx={{backgroundColor: 'common.black', minHeight: '90vh', width: '100%'}}></Box>
           </Grid>
         </Grid>

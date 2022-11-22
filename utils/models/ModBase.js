@@ -9,6 +9,14 @@ class ModBase {
     this.DB = DB
   }
 
+  rowCount() {
+    return this.DB.rowCount(this.tableName)
+  }
+
+  isEmpty() {
+    return this.rowCount() < 1
+  }
+
   tableExists() {
     return this.DB.tableExists(this.tableName)
   }

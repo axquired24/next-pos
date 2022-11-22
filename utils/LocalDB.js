@@ -37,10 +37,12 @@ const initTable = () => {
     ModGrocery.createTable()
 
     DB.commit()
+    console.log('Table Created')
   } // endif
 
-  seedDummy()
-  console.log('Table Created')
+  if(ModCategory.isEmpty() && ModGrocery.isEmpty()) {
+    seedDummy()
+  } // endif
 }
 
 const LocalDB = {

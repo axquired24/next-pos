@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react'
 import MainLayout from '../components/layout/MainLayout'
 import Helper from '../utils/Helper'
 import LocalDB from '../utils/LocalDB'
+import ModGrocery from '../utils/models/ModGrocery'
 
 const BoxForItem = (props) => {
-  const {name='', stock=10, price=0} = props
+  const {label='', stock=10, price=0, categoryId, ID} = props
   const stockStr = stock + ' items'
   return <Box sx={
     {
@@ -24,7 +25,7 @@ const BoxForItem = (props) => {
     }
   }>
     <Box sx={{textAlign: 'right'}}>
-      <Typography color='common.black' sx={{fontSize: '1.3rem', fontWeight: '500'}}>{name}</Typography>
+      <Typography color='common.black' sx={{fontSize: '1.3rem', fontWeight: '500'}}>{label}</Typography>
       <Typography variant='subtitle1' sx={{fontSize: '0.9rem'}}>{Helper.formatRupiah(price)}</Typography>
     </Box>
     <Box sx={{position: 'absolute', bottom: 0, left: 0, padding: '1rem'}}>
@@ -35,17 +36,23 @@ const BoxForItem = (props) => {
 
 export default function Home() {
   const [state, setState] = useState({
-    hasInit: false
+    hasInit: false,
+    groceries: []
   });
-  const juices = ['Manggo', 'Apple', 'Berry', 'Papaya', 'Avocado', 'Melon', 'Orange', 'Pineapple', 'Peach']
-  const randomNumber = () => {
-    return Math.floor(Math.random() * 100)
-  }
 
   useEffect(() => {
     if(! state.hasInit) {
       LocalDB.initTable()
       setState(prev => { return {...prev, hasInit: true}})
+    } // endif
+
+    if(ModGrocery.tableExists()) {
+      setState(prev => {
+        return {
+          ...prev,
+          groceries: ModGrocery.queryAll()
+        }
+      })
     } // endif
   }, []);
 
@@ -54,9 +61,9 @@ export default function Home() {
       <Grid container spacing={2}>
         {
           state.hasInit ?
-          juices.map((ju, idx) => (
+          state.groceries.map((grocery, idx) => (
             <Grid item md={4} key={idx}>
-              <BoxForItem name={ju} stock={randomNumber()} />
+              <BoxForItem {...grocery} />
             </Grid>
           ))
           : <div></div>

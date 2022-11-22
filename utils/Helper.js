@@ -8,7 +8,7 @@ function formatRupiah(angka, prefix='Rp'){
 
 	// tambahkan titik jika yang di input sudah menjadi angka ribuan
 	if(ribuan){
-		separator = sisa ? '.' : '';
+		let separator = sisa ? '.' : '';
 		rupiah += separator + ribuan.join('.');
 	}
 
