@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { Box } from '@mui/system';
 import LocalDB from '../../utils/LocalDB';
 import { useEffect } from 'react';
+import ModCategory from '../../utils/models/ModCategory';
 
 const MainSidebar = () => {
   const [state, setState] = useState({
@@ -19,7 +20,7 @@ const MainSidebar = () => {
   });
 
   const setCategory = () => {
-    const categories = LocalDB.lib.queryAll(LocalDB.Collection.Categories).map(cat => {
+    const categories = ModCategory.queryAll().map(cat => {
       return {
         ...cat,
         url: '#category-' + cat.ID
@@ -63,7 +64,9 @@ const MainSidebar = () => {
   ]
 
   useEffect(() => {
-    setCategory()
+    if(ModCategory.tableExists()) {
+      setCategory()
+    } // endif
   }, []);
 
   return (
