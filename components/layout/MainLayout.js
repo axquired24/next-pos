@@ -20,13 +20,13 @@ const MainLayout = ({children, title=''}) => {
       <Box sx={{backgroundColor: 'common.white', color: 'common.black'}}>
         <MainTopBar />
         <Grid container sx={{marginTop: '4rem'}} spacing={3}>
-          <Grid item md={3} sx={{marginTop: '-1rem'}}>
+          <Grid item sx={{marginTop: '-1rem', flex: 1}}>
             <MainSidebar />
           </Grid>
-          <Grid item md={6}>
+          <Grid item sx={{flex: 3}}>
             {children}
           </Grid>
-          <Grid item md={3}>
+          <Grid item sx={{flex: 1}}>
             {/* calculator */}
             <Box sx={{backgroundColor: 'common.black', minHeight: '90vh', width: '100%'}}></Box>
           </Grid>

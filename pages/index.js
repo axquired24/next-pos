@@ -3,10 +3,11 @@ import useEnhancedEffect from '@mui/material/utils/useEnhancedEffect'
 import { Box } from '@mui/system'
 import { useEffect, useState } from 'react'
 import MainLayout from '../components/layout/MainLayout'
+import Helper from '../utils/Helper'
 import LocalDB from '../utils/LocalDB'
 
 const BoxForItem = (props) => {
-  const {name='', stock=10} = props
+  const {name='', stock=10, price=0} = props
   const stockStr = stock + ' items'
   return <Box sx={
     {
@@ -16,14 +17,17 @@ const BoxForItem = (props) => {
       borderRadius: '10px',
       position: 'relative',
       cursor: 'pointer',
-      padding: '1rem',
+      padding: '0.6rem 1rem',
       '&:hover': {
         backgroundColor: 'grey.200'
       }
     }
   }>
+    <Box sx={{textAlign: 'right'}}>
+      <Typography color='common.black' sx={{fontSize: '1.3rem', fontWeight: '500'}}>{name}</Typography>
+      <Typography variant='subtitle1' sx={{fontSize: '0.9rem'}}>{Helper.formatRupiah(price)}</Typography>
+    </Box>
     <Box sx={{position: 'absolute', bottom: 0, left: 0, padding: '1rem'}}>
-      <Typography color='common.black' sx={{fontSize: '1rem', fontWeight: '500'}}>{name}</Typography>
       <Typography variant='subtitle1' sx={{fontSize: '0.9rem'}}>{stockStr}</Typography>
     </Box>
   </Box>
